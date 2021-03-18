@@ -3,11 +3,9 @@ XGBoost is a very powerful tool for classification and regression.
 # Setting up our environment
 First, let's read in the libraries we're going to use. we need to install if it is not installed earlier (xgboost & tidyverse)
 
-# read in our data & put it in a data frame
-we're going to be using a dataset from the Food and Agriculture Organization of the United Nations that contains information on various outbreaks of animal diseases. We're going to try to predict which outbreaks of animal diseases will lead to humans getting sick
+Read in our data & put it in a data frame: we're going to be using a dataset from the Food and Agriculture Organization of the United Nations that contains information on various outbreaks of animal diseases. We're going to try to predict which outbreaks of animal diseases will lead to humans getting sick
 
-# set a random seed & shuffle data frame
-so that we can split our data into a testing set and training set using the row numbers, we will get a random sample of data in both the testing and training set.
+Set a random seed & shuffle data frame: so that we can split our data into a testing set and training set using the row numbers, we will get a random sample of data in both the testing and training set.
 
 # A tibble: 6 x 24
       Id source latitude longitude region country admin1 localityName localityQuality observationDate reportingDate
