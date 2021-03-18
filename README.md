@@ -13,9 +13,13 @@ The core xgboost function requires data to be a matrix. However, our data isn't 
 As per the result we got, our data will need some cleaning before it's ready to be put in a matrix. To prepare our data, we have a number of steps we need to complete:
 
 . Remove information about the target variable from the training data
+
 . Reduce the amount of redundant information
+
 . Convert categorical information (like country) to a numeric format
+
 . Split dataset into testing and training subsets
+
 . Convert the cleaned dataframe to a Dmatrix
  
 # check out the first few lines
