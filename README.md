@@ -1,42 +1,14 @@
 # Machine_Learning_XGBoost_in_R
 XGBoost is a very powerful tool for classification and regression.
 # Setting up our environment
-First, let's read in the libraries we're going to use.
-library(xgboost)
-library(tidyverse)
--- Attaching packages --------------------------------------------------------------------------- tidyverse 1.3.0 --
-v ggplot2 3.3.2     v purrr   0.3.4
-v tibble  3.0.4     v dplyr   1.0.3
-v tidyr   1.1.2     v stringr 1.4.0
-v readr   1.4.0     v forcats 0.5.0
--- Conflicts ------------------------------------------------------------------------------ tidyverse_conflicts() --
-x dplyr::filter() masks stats::filter()
-x dplyr::lag()    masks stats::lag()
-x dplyr::slice()  masks xgboost::slice()
-# read in our data & put it in a data frame
-diseaseInfo <- read_csv("Outbreak_240817.csv")
--- Column specification --------------------------------------------------------------------------------------------
-cols(
-  .default = col_character(),
-  Id = col_double(),
-  latitude = col_double(),
-  longitude = col_double(),
-  sumAtRisk = col_double(),
-  sumCases = col_double(),
-  sumDeaths = col_double(),
-  sumDestroyed = col_double(),
-  sumSlaughtered = col_double(),
-  humansAge = col_double(),
-  humansAffected = col_double(),
-  humansDeaths = col_double()
-)
-i Use `spec()` for the full column specifications.
+First, let's read in the libraries we're going to use. we need to install if it is not installed earlier (xgboost & tidyverse)
 
-|========================================================================================================| 100% 2 MB
+# read in our data & put it in a data frame
+we're going to be using a dataset from the Food and Agriculture Organization of the United Nations that contains information on various outbreaks of animal diseases. We're going to try to predict which outbreaks of animal diseases will lead to humans getting sick
+
 # set a random seed & shuffle data frame
-set.seed(1234)
-diseaseInfo <- diseaseInfo[sample(1:nrow(diseaseInfo)), ]
-head(diseaseInfo)
+so that we can split our data into a testing set and training set using the row numbers, we will get a random sample of data in both the testing and training set.
+
 # A tibble: 6 x 24
       Id source latitude longitude region country admin1 localityName localityQuality observationDate reportingDate
    <dbl> <chr>     <dbl>     <dbl> <chr>  <chr>   <chr>  <chr>        <chr>           <chr>           <chr>        
