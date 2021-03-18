@@ -1,31 +1,22 @@
 # Machine_Learning_XGBoost_in_R
 XGBoost is a very powerful tool for classification and regression.
-# Setting up our environment
+# Setting up environment
 First, let's read in the libraries we're going to use. we need to install if it is not installed earlier (xgboost & tidyverse)
 
 Read in our data & put it in a data frame: we're going to be using a dataset from the Food and Agriculture Organization of the United Nations that contains information on various outbreaks of animal diseases. We're going to try to predict which outbreaks of animal diseases will lead to humans getting sick
 
 Set a random seed & shuffle data frame: so that we can split our data into a testing set and training set using the row numbers, we will get a random sample of data in both the testing and training set.
 
-# A tibble: 6 x 24
-      Id source latitude longitude region country admin1 localityName localityQuality observationDate reportingDate
-   <dbl> <chr>     <dbl>     <dbl> <chr>  <chr>   <chr>  <chr>        <chr>           <chr>           <chr>        
-1 219318 Natio~     28.4     46.0  Asia   Saudi ~ Easte~ Hafr-Elbatin Unknown         15/11/2016      17/11/2016   
-2 219097 OIE        45.6     11.4  Europe Italy   Veneto CASTELGOMBE~ Exact           03/11/2016      14/11/2016   
-3 219828 OIE        52.4     23.2  Europe Poland  Podla~ Adamowo      Unknown         19/11/2016      30/11/2016   
-4 221042 OIE        36.6     10.7  Africa Tunisia Nabeul Beni khalled Exact           01/11/2016      28/12/2016   
-5 217753 OIE        46.1      4.43 Europe France  Rhone~ POULE LES E~ Unknown         04/10/2016      11/10/2016   
-6 228469 OIE        35.3    129.   Asia   Republ~ Kyong~ Gijang-gun   Exact           07/06/2017      12/06/2017   
-# ... with 13 more variables: status <chr>, disease <chr>, serotypes <chr>, speciesDescription <chr>,
-#   sumAtRisk <dbl>, sumCases <dbl>, sumDeaths <dbl>, sumDestroyed <dbl>, sumSlaughtered <dbl>,
-#   humansGenderDesc <chr>, humansAge <dbl>, humansAffected <dbl>, humansDeaths <dbl>
-diseaseInfo_humansRemoved <- diseaseInfo %>%
-+   select(-starts_with("human"))
-# get a boolean vector of training labels
-diseaseLabels <- diseaseInfo %>%
-+   select(humansAffected) %>% # get the column with the # of humans affected
-+   is.na() %>% # is it NA?
-+   magrittr::not() # switch TRUE and FALSE (using function from the magrittr package)
+# Preparing our data & selecting features
+The core xgboost function requires data to be a matrix. However, our data isn't currently in a matrix. In fact, many of our features aren't numeric at all! so we should check first few rows of our dataframe and see what it looks like.
+
+As per the result we got, our data will need some cleaning before it's ready to be put in a matrix. To prepare our data, we have a number of steps we need to complete:
+
+*Remove information about the target variable from the training data
+*Reduce the amount of redundant information
+*Convert categorical information (like country) to a numeric format
+*Split dataset into testing and training subsets
+*Convert the cleaned dataframe to a Dmatrix
  
 # check out the first few lines
 > head(diseaseLabels) # of our target variable
